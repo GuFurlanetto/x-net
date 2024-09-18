@@ -1,0 +1,21 @@
+{
+    "model_name": "sync_av",
+    "cnn":{
+        "number_of_layers": 4,
+        "input_size": 128,
+        "kernel_size": 3,
+        "kernel_qty": [32, 64, 128, 256],
+        "input_channels": 2,
+        "activation_func": "l_relu",
+        "pooling_layer": "max",
+        "pooling_kernel_size": 3
+    },
+    "mlp": {
+        "input_size": 2304,
+        "number_of_layers": 4,
+        "neurons_per_layer": [512, 256, 128, 64],
+        "output_size": 1,
+        "activation_func": "l_relu"
+    }
+
+}
