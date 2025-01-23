@@ -1,6 +1,6 @@
-from Processor_AV import Processor_AV
-from Sync_AV import Sync_AV
-from src.utils.common import read_json
+from .Processor_AV import Processor_AV
+from .Sync_AV import Sync_AV
+from utils.common import read_json
 
 
 class Controller_AV:

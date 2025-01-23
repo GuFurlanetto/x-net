@@ -1,20 +1,22 @@
+from argparse import ArgumentParser
 from torch import nn
 
 import torch
 import json
 
+from torchsummary import summary
+
 
 class Sync_AV(nn.Module):
-    def __init__(self, config_path, inference_mode=False) -> None:
+    def __init__(self, config_path) -> None:
         super(Sync_AV, self).__init__()
 
+        # Load config
         self.config_path = config_path
-        self.inference_mode = inference_mode
+        self.config = json.load(open(self.config_path, "r"))
+        self.inference_mode = self.config["inference_mode"]
         self.activation_funcs = {"l_relu": nn.LeakyReLU, "relu": nn.ReLU}
         self.pooling_layer = {"max": nn.MaxPool2d, "avg": nn.AvgPool2d}
-
-        # Load config
-        self.config = json.load(open(self.config_path, "r"))
 
         # Build CNN
         cnn_config = self.config["cnn"]
@@ -79,6 +81,6 @@ class Sync_AV(nn.Module):
 
 
 if __name__ == "__main__":
-    sync_av = Sync_AV("src/config_files/sync_av.json", inference_mode=False)
 
-    print(sync_av(torch.ones(1, 2, 128, 128)))
+    vgg = Sync_AV("src/config_files/sync_av.json").cuda()
+    summary(vgg, (51, 224, 224))
