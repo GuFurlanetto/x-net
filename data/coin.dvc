@@ -1,0 +1,5 @@
+outs:
+- md5: 0363f3dd6841567bd25e7c44f60dd9d8.dir
+  size: 55631766104
+  nfiles: 102910
+  path: coin

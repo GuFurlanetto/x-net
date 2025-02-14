@@ -1,0 +1,8 @@
+[core]
+    remote = s3_dvc_bucket
+['remote "gdrive-remote"']
+    url = gdrive://14yQq6tNTKhjGEKjf1ZVZLw44ptBcPR6H
+    gdrive_acknowledge_abuse = true
+    gdrive_user_credentials_file = /home/gustavo/Documentos/mestrado/auth/generated_token.json
+['remote "s3_dvc_bucket"']
+    url = s3://dvcbucket-master-projects/x-net
