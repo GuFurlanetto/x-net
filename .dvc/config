@@ -1,8 +1,12 @@
 [core]
-    remote = s3_dvc_bucket
+    remote = unesp_drive
 ['remote "gdrive-remote"']
     url = gdrive://14yQq6tNTKhjGEKjf1ZVZLw44ptBcPR6H
     gdrive_acknowledge_abuse = true
     gdrive_user_credentials_file = /home/gustavo/Documentos/mestrado/auth/generated_token.json
 ['remote "s3_dvc_bucket"']
     url = s3://dvcbucket-master-projects/x-net
+['remote "unesp_drive"']
+    url = gdrive://1Hfik_T2W33_gD0Q-gMw_mDp0Grc3ns1v
+    gdrive_client_id = 337036258989-3hjvjf7lqvvupj736q01pr7sfi6j5a1c.apps.googleusercontent.com
+    gdrive_client_secret = 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
