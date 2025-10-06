@@ -1,5 +1,49 @@
 import json
 import csv
+import yaml
+
+
+import moviepy as mpy
+import tempfile
+import os
+import soundfile as sf
+
+import librosa
+
+
+def save_results(video_frames, audio_spectrogram, output_path, fps=10, sr=16000):
+    """
+    Saves reconstructed video with attached audio.
+
+    Args:
+        video_frames (List[np.ndarray]): List of HxWx3 video frames.
+        audio_spectrogram (np.ndarray): Audio spectrogram to be converted back to waveform.
+        output_path (str): Path to save the final video file.
+        fps (int): Frame rate of the video.
+        sr (int): Sample rate of audio.
+    """
+
+    # Convert spectrogram back to waveform
+    audio_db = librosa.db_to_amplitude(audio_spectrogram)
+    audio_waveform = librosa.griffinlim(audio_db)
+
+    # Save temporary audio file
+    tmp_dir = tempfile.mkdtemp()
+    audio_path = os.path.join(tmp_dir, "temp_audio.wav")
+    sf.write(audio_path, audio_waveform, sr)
+
+    # Create video clip
+    video_frames = [frame * 255.0 for frame in video_frames]
+    clip = mpy.ImageSequenceClip(video_frames, fps=fps)
+    audio = mpy.AudioFileClip(audio_path)
+    clip = clip.with_audio(audio)
+
+    # Write final video
+    clip.write_videofile(output_path, codec="libx264", audio_codec="aac")
+
+    # Cleanup
+    clip.close()
+    audio.close()
 
 
 # JSON Functions
@@ -99,3 +143,47 @@ def append_text(data, file_path):
     """
     with open(file_path, "a", encoding="utf-8") as file:
         file.write(data + "\n")
+
+
+def load_yaml(file):
+    """
+    Load a yaml file from path
+
+    Args:
+        file -> str: Path to the yaml file
+
+    Return:
+        yaml_file -> dict: Yaml file loaded
+
+
+    """
+
+    with open(file, "r") as f:
+        try:
+            config = yaml.safe_load(f)
+        except yaml.YAMLError as exc:
+            print(exc)
+
+    return config
+
+
+def save_yaml(file, yaml_obj):
+    """
+    Save a yaml file from path
+
+    Args:
+        file -> str: Path to the yaml file
+
+        yaml_obj -> dict: Dict with the yaml content
+
+    Return:
+        success -> boll: Flag indicating success or failure
+    """
+
+    try:
+        yaml.dump(yaml_obj, open(file, "w"), indent=2)
+    except:
+        print("Failed to save the YAML file")
+        return False
+
+    return True

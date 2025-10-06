@@ -1,1 +1,1 @@
-from .COIN import COIN
+from .dataset import SyncAVDataset, ProcessorAVDataset, CrossProcessorAVDataset
