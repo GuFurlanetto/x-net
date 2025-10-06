@@ -1,0 +1,58 @@
+{
+    "model_parameters": {
+        "num_classes": 180,
+        "hidden_size": 1536,
+        "video_backbone_path": "MCG-NJU/videomae-base",
+        "audio_backbone_path": "google/vit-base-patch16-224-in21k",
+        "video_feature_dim": 768,
+        "audio_feature_dim": 768,
+        "cond_dim": 128,
+        "controller_cfg": {
+            "syncav": "best_models/sync_av/sync_av.json",
+            "syncav_weights": "best_models/sync_av/best.pt",
+            "audio2audio": "best_models/processorAV/audio/processorAV.json",
+            "audio2audio_weights": "best_models/processorAV/audio/best.pt",
+            "video2video": "best_models/processorAV/image/processorAV.json",
+            "video2video_weights": "best_models/processorAV/image/best.pt"
+        },
+        "use_controller_av": true,
+        "freeze_video": false,
+        "freeze_audio": false
+    },
+    "training_parameters": {
+        "seed": 42,
+        "data_parameters": {
+            "dataset_path": "/media/gustavo-furlanetto/KINGSTON/datasets/coin/features",
+            "video_processor_path": "MCG-NJU/videomae-base",
+            "audio_processor_path": "google/vit-base-patch16-224-in21k",
+            "shuffle": true,
+            "batch_size": 4,
+            "load_pre_processed_data": true,
+            "pre_processed_data_path": "/media/gustavo-furlanetto/KINGSTON/datasets/coin/features"
+        },
+        "epochs": 20,
+        "final_model_save_path": "xnet_final_head_model.pt",
+        "best_model_save_path": "xnet_best_head_model.pt",
+        "early_stop_patience": 20,
+        "logger": {
+            "experiment_name": "COIN eval",
+            "run_name": "Sem ControllerAV"
+        },
+        "optimizer": "AdamW",
+        "optimizer_params": {
+            "lr": 5e-5,
+            "weight_decay": 1e-3
+        },
+        "lr_scheduler": "OneCycleLR",
+        "lr_scheduler_params": {
+            "max_lr": 5e-5,
+            "epochs": 20,
+            "steps_per_epoch": 1174,
+            "pct_start": 0.1
+        },
+        "loss": "CrossEntropyLoss",
+        "loss_params": {
+            "label_smoothing": 0.1
+        }
+    }
+}

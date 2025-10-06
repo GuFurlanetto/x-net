@@ -1,0 +1,86 @@
+{
+  "model_parameters": {
+    "img_channels": 3,
+    "layers": [
+      64,
+      128,
+      256,
+      512
+    ],
+    "kernel_sizes": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "kernel_strides": [
+      2,
+      2,
+      2,
+      2
+    ],
+    "kernel_paddings": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "latent_dim": 512,
+    "input_size": [
+      224,
+      224
+    ],
+    "use_batchnorm": false,
+    "dropout_prob": 0.0
+  },
+  "training_parameters": {
+    "train_data_path": "/media/gustavo-furlanetto/KINGSTON/datasets/cross_AVprocessor_dataset/Train",
+    "val_data_path": "/media/gustavo-furlanetto/KINGSTON/datasets/cross_AVprocessor_dataset/Val",
+    "experiment_name": "Cross model Image2Audio parameter search",
+    "batch_size": 32,
+    "epochs": 200,
+    "val_every_n_steps": null,
+    "scheduler_step_size": null,
+    "early_stop_patience": 10,
+    "early_stop_metric": "val_epoch_ssim",
+    "early_stop_mode": "max",
+    "optimizer": "AdamW",
+    "optimizer_params": {
+      "lr": 1e-3,
+      "weight_decay": 0.0001,
+      "amsgrad": true
+    },
+    "lr_scheduler": "ExponentialLR",
+    "lr_scheduler_params": {
+      "gamma": 0.95
+    },
+    "transformations": {
+      "ToTensor": {
+        "use_in_val": true
+      },
+      "Resize": {
+        "size": [
+          224,
+          224
+        ],
+        "use_in_val": true
+      },
+      "Normalize": {
+        "mean": [
+          0.5
+        ],
+        "std": [
+          0.5
+        ],
+        "use_in_val": true
+      }
+    },
+    "loss_args": {
+      "reg_weight": 1.0,
+      "kernel_type": "rbf",
+      "z_var": 1.0,
+      "beta": 1.0
+    },
+    "shuffle": true
+  }
+}

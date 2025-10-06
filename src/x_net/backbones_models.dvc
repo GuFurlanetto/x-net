@@ -1,0 +1,6 @@
+outs:
+- md5: 1a392ff57c3355b992cee3e21ac2ef3a.dir
+  size: 2066610855
+  nfiles: 16
+  hash: md5
+  path: backbones_models

@@ -1,0 +1,81 @@
+{
+    "model_parameters": {
+        "video_cnn": {
+            "in_channels": 3,
+            "embed_dim": 256,
+            "layers": [
+                {
+                    "out_channels": 32,
+                    "kernel_size": 3,
+                    "stride": 1,
+                    "padding": 1,
+                    "pool": 2
+                },
+                {
+                    "out_channels": 64,
+                    "kernel_size": 3,
+                    "stride": 1,
+                    "padding": 1,
+                    "pool": 2
+                },
+                {
+                    "out_channels": 128,
+                    "kernel_size": 3,
+                    "stride": 1,
+                    "padding": 1,
+                    "pool": 2
+                }
+            ]
+        },
+        "audio_cnn": {
+            "in_channels": 3,
+            "embed_dim": 256,
+            "layers": [
+                {
+                    "out_channels": 32,
+                    "kernel_size": 3,
+                    "stride": 1,
+                    "padding": 1,
+                    "pool": 2
+                },
+                {
+                    "out_channels": 64,
+                    "kernel_size": 3,
+                    "stride": 1,
+                    "padding": 1,
+                    "pool": 2
+                },
+                {
+                    "out_channels": 128,
+                    "kernel_size": 3,
+                    "stride": 1,
+                    "padding": 1,
+                    "pool": 2
+                }
+            ]
+        },
+        "predictor": {
+            "hidden_dim": 128
+        }
+    },
+    "training_parameters": {
+        "experiment_name": "SyncAV Training",
+        "data_path": "/media/gustavo-furlanetto/KINGSTON/datasets/UCF101",
+        "use_pre_processed": true,
+        "pre_processed_data_path": "/media/gustavo-furlanetto/KINGSTON/processed_dataset/sync_av/UCF101_features",
+        "batch_size": 16,
+        "epochs": 100,
+        "save_path": "best_sync_av_model.pt",
+        "early_stop_patience": 10,
+        "shuffle": true,
+        "optimizer": "AdamW",
+        "optimizer_params": {
+            "lr": 1e-3,
+            "weight_decay": 1e-4
+        },
+        "lr_scheduler": "ExponentialLR",
+        "lr_scheduler_params": {
+            "gamma": 0.95
+        }
+    }
+}
